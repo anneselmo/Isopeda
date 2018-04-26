@@ -1,0 +1,23 @@
+ISOPEDA
+
+Isopeda is a set of python3 tools that work together to scan through sets of
+webpages (such as output from my related project at:
+
+https://github.com/anneselmo/Salticus.scenicus ).
+
+Mainly it was designed with news articles in mind, but doubtless could be used
+on other sorts of content. 
+
+It uses multiple utilities from nltk, in addition to BeautifulSoup, cdbx, and
+python magic. If you're setting it up, you may also need to download the nltk
+stopwords database, such as by opening a python3 shell and running:
+
+import nltk 
+nltk.download('stopwords')
+
+presently one can generate a training set with sets.py, and feed that to
+functions in classi.py to produce and save a classifier, which then gets used
+by isopeda.py's isopeda function to read through databases and produce some
+hopefully desired items.
+
+Enjoy!
