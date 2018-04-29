@@ -32,7 +32,7 @@ def trueget(llist):
     return(neo_list)
 
 def data_enter(url, database):
-    print(url)
+    print(str(url, 'utf-8'))
     page=pagegets(url)
     scan=magic.Magic(mime=True)
     url.replace("\n", "")
