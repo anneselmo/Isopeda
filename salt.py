@@ -125,7 +125,7 @@ def countloop(pre_list, rounds, limit, threads):
         if i > 2:
             neo_list=nlistclean(pre_list)
         if len(neo_list) > limit:
-            neo_list=random.sample(fish, limit)
+            neo_list=random.sample(neo_list, limit)
     return("f")
 
 def list_byte(size):
