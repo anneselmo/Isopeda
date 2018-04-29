@@ -146,5 +146,3 @@ def nlistclean(flist):
             print("filtered", url)
     neo_list=elist
     return(neo_list)
-
-countloop()
