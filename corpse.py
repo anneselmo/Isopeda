@@ -6,7 +6,6 @@ import os
 import json
 
 from collections import Counter
-from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize 
 from nltk.stem import PorterStemmer as ps
 from nltk.tokenize import RegexpTokenizer
@@ -112,3 +111,13 @@ def neo_process_dir(directory):
         utils.cdb_add(cdb, "description", desc)
         utils.ccommit_cdb(cdb)
     return("fin")
+
+def startup():
+    try:
+        from nltk.corpus import stopwords
+        test=stopwords.words('english')
+    except:
+        nltk.download('stopwords', download_dir=os.path.abspath("."))
+        from nltk.corpus import stopwords
+
+startup()
