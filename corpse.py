@@ -61,9 +61,9 @@ def ramble_meter(text): #trying to assess directness of text, ratio of stopwords
     rock, fluff = 0, 0
     tkzr = RegexpTokenizer(r'\w+')
     tokens = tkzr.tokenize(text)
-    stopwords = [ps().stem(word) for word in stopwords.words('english')]
+    swords = [ps().stem(word) for word in stopwords.words('english')]
     for word in tkzr.tokenize(text):
-        if ps().stem(word) in stopwords:
+        if ps().stem(word) in swords:
             fluf=fluf+1
         else:
             rock=rock+1
