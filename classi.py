@@ -56,8 +56,8 @@ def save_classifier(classifier, destfile):
     f.close()
 
 def classi(path):
-    sets=breakup_sets(gen_sets(path))
+    sets=[gen_sets(path)]
     cl=train_set(sets[0])
-    print("accuracy ish:", nltk.classify.accuracy(cl, sets[1]))
+    #print("accuracy ish:", nltk.classify.accuracy(cl, sets[1])) #will be useful if we implement better verification
     save_classifier(cl, path+"/classi.class")
     return(0)
