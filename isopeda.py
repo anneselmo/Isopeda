@@ -8,7 +8,7 @@ from collections import Counter
 import utils
 import corpse
 
-def load_cl(classifier):
+def load_cl(classifier): #load the classifier from a saved file
     f=open(classifier, "rb")
     return(pickle.load(f))
 
@@ -55,7 +55,7 @@ def isopeda(directory):
     cats={} #dictionary with categories and scores 
     keywords=keywords_list("keywords.list")
     cl=load_cl("classi.class") 
-    #ready_directory(directory)
+    ready_directory(directory)
     places=utils.recursive_scan("desc.cdb", directory)
     for place in places:
         score.update(score_cdb(place, cats, keywords, cl))
