@@ -4,6 +4,7 @@
 import cdbx
 import os
 import json
+import nltk
 
 from collections import Counter
 from nltk.tokenize import sent_tokenize 
