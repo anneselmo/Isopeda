@@ -47,7 +47,7 @@ def neo_describe(text, title): #generate a pages description using allwords
     tlist=title.lower().split()
     topics={}
     for word in allwords:
-        topics[str(word, 'utf-8')]=allwords[word]
+        topics[word]=allwords[word]
     for word in topics:
         if word in wlist:
             topics[word] = topics[word]+1
