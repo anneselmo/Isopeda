@@ -12,7 +12,6 @@ def save_json(ilist, filename):
         json.dump(ilist, f)
     return(0)
 
-
 def parse():
     parser = argparse.ArgumentParser(description="news scanner gizmo")
     parser.add_argument("-k", dest = "keywords", default=0, help="keywords", type=str, nargs='+')
@@ -33,5 +32,6 @@ def parse():
         corpse.preprocess_dir(args.classify)
         corpse.neoprocess_dir(args.classify)
         classi.classi(args.classify)
-
+    else:
+        print("you can use -h to get help")
 parse()
