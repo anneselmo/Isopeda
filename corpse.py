@@ -58,7 +58,7 @@ def neo_describe(text, title): #generate a pages description using allwords
 
 def ramble_meter(text): #trying to assess directness of text, ratio of stopwords to otherwords
     text=text.lower()
-    rock, fluff = 0, 0
+    rock, fluf = 0, 0
     tkzr = RegexpTokenizer(r'\w+')
     tokens = tkzr.tokenize(text)
     swords = [ps().stem(word) for word in stopwords.words('english')]
@@ -67,6 +67,7 @@ def ramble_meter(text): #trying to assess directness of text, ratio of stopwords
             fluf=fluf+1
         else:
             rock=rock+1
+    print("RAMBLE:", (fluf/rock))
     return(fluf/rock)
 
 def preprocess_dir(directory): #generate list of significant words
