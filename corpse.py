@@ -10,6 +10,7 @@ from collections import Counter
 from nltk.tokenize import sent_tokenize 
 from nltk.stem import PorterStemmer as ps
 from nltk.tokenize import RegexpTokenizer
+from nltk.corpus import stopwords
 
 import aggtext
 import utils
