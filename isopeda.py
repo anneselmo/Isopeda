@@ -19,14 +19,12 @@ def score_cdb(tfile, cats, keywords, cl):
         if key.endswith("desc"):
                 cati=check_categories(cl, cats, json.loads(str(cdb[bytes(key, 'utf-8')], 'utf-8')))
                 keywi=check_keywords(keywords, str(cdb[bytes(key, 'utf-8')], 'utf-8'))
-                value=cati+keywi
+                value=int(cati)+keywi
                 score[cdb[bytes(key[:-4]+"url", 'utf-8')]]=value
                 print("VAL:", cati, keywi)
     return(score)
 
 def ready_directory(directory):
-    global allwords
-    allwords=utils.cdb2dict(directory+"/allwords.dict.cdb")
     for place in utils.recursive_scan("dict.cdb", directory):
         if place.startswith("allwords"):
             allwords=utils.cdb2dict(place)
@@ -52,7 +50,9 @@ def check_categories(cl, cats, descr):
 def isopeda(directory):
     score={}
     best=[]
+    global allwords
     cats=load_json("cats.dict")
+    allwords=utils.cdb2dict("allwords.dict.cdb")
     keywords=load_json("keywords.list")
     cl=load_cl("classi.class") 
     ready_directory(directory)

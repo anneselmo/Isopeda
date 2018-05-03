@@ -97,8 +97,7 @@ def neo_process_dir(directory):
     try: #open allwords if its not already here
         type(allwords) 
     except:
-        allwords=utils.cdb2dict(directory+"/allwords.dict.cdb")
-
+        allwords=utils.cdb2dict("allwords.dict.cdb")
     for path in utils.find_directories(directory):
         cdb=utils.neo_cdb(path+".desc.cdb")
         desc=os.path.basename(path)
