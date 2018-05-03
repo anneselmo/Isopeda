@@ -52,8 +52,8 @@ def check_categories(cl, cats, descr):
 def isopeda(directory):
     score={}
     best=[]
-    cats={} #dictionary with categories and scores 
-    keywords=keywords_list("keywords.list")
+    cats=load_json("cats.dict")
+    keywords=load_json("keywords.list")
     cl=load_cl("classi.class") 
     ready_directory(directory)
     places=utils.recursive_scan("desc.cdb", directory)
@@ -64,6 +64,6 @@ def isopeda(directory):
     leaderboard=Counter(score)
     print(leaderboard.most_common(5))
             
-def keywords_list(tfile):
+def load_json(tfile):
     with open(tfile, "r") as source:
         return(json.load(source))
