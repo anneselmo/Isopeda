@@ -32,7 +32,10 @@ def trueget(llist):
     return(neo_list)
 
 def data_enter(url, database):
-    page=pagegets(url)
+    data=pagegets(url)
+    if data[1] is 3:
+        return(1) #dont keep blanks
+    page=data[0]
     scan=magic.Magic(mime=True)
     url.replace("\n", "")
     if url.split(".")[-1:][0] in ["zip", "gzip", "tgz", "iso", "xz", "bz2", "img", "qcow2", "mp3", "aac", "flac", "opus", "mp4", "ogg"]:
@@ -43,6 +46,7 @@ def data_enter(url, database):
         del(page)
         return(1)
     database.add(bytes("ut-"+url, 'utf-8'), datetime.datetime.now().strftime("%s")) #timestamping
+    database.add(bytes("vr-"+url, 'utf-8'), data[1]) #https status
     if scan.from_buffer(page.content).startswith('text'):
         soup=BeautifulSoup(page.content)
         database.add(bytes(url, 'utf-8'), bytes(str(soup.contents), 'utf-8'))
@@ -68,10 +72,16 @@ def pagegets(url): #download
                 tor.proxies= { 'http': 'socks5h://localhost:9050', 'https': 'socks5h://localhost:9050' }
                 page=tor.get(url, verify=False, headers={"User-Agent": "Salticus scenicus"})
             else:
-                page = requests.get(url, verify=False, headers={"User-Agent": "Salticus scenicus"}) #ignore https errors
+                try:
+                    page = requests.get(url, headers={"User-Agent": "Salticus scenicus"}) 
+                    https=1
+                except:
+                    page = requests.get(url, verify=False, headers={"User-Agent": "Salticus scenicus"}) #ignore https errors
+                    https=0
         except requests.exceptions.RequestException:
             page=return_blank_page()
-        return(page)
+            https=3
+        return(page, https)
 
 def return_blank_page():
     page=faux_page
