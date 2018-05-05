@@ -46,7 +46,7 @@ def data_enter(url, database):
         del(page)
         return(1)
     database.add(bytes("ut-"+url, 'utf-8'), datetime.datetime.now().strftime("%s")) #timestamping
-    database.add(bytes("vr-"+url, 'utf-8'), data[1]) #https status
+    database.add(bytes("vr-"+url, 'utf-8'), page.content) #https status
     if scan.from_buffer(page.content).startswith('text'):
         soup=BeautifulSoup(page.content)
         database.add(bytes(url, 'utf-8'), bytes(str(soup.contents), 'utf-8'))
