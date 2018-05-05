@@ -39,7 +39,6 @@ def data_enter(url, database):
     scan=magic.Magic(mime=True)
     url.replace("\n", "")
     if url.split(".")[-1:][0] in ["zip", "gzip", "tgz", "iso", "xz", "bz2", "img", "qcow2", "mp3", "aac", "flac", "opus", "mp4", "ogg"]:
-        print("FISHFISHFISHFISH")
         del(page)
         return(1)
     if scan.from_buffer(page.content) is "<html></html>": #dont save blank pages
@@ -50,12 +49,17 @@ def data_enter(url, database):
     if scan.from_buffer(page.content).startswith('text'):
         soup=BeautifulSoup(page.content)
         database.add(bytes(url, 'utf-8'), bytes(str(soup.contents), 'utf-8'))
+        try:
+            database.add(bytes("mt-"+url, 'utf-8'), soup.time.attrs['datetime'])
+        except:
+            database.add(bytes("mt-"+url, 'utf-8'), bytes("xxx", 'utf-8')) #as we cant read the edit time there
         del(page)
         return(soup)
     else:
         database.add(bytes(url, 'utf-8'), page.content) #store binaries
-        del(page)
-        return(1)
+        database.add(bytes("mt-"+url, 'utf-8'), bytes("xxx", 'utf-8')) #as we cant read the edit time there
+    del(page)
+    return(1)
 
 def findbaseurl(url): #find the url to append if links arent absolute
     return("{0.scheme}://{0.netloc}".format(urlsplit(url)))
@@ -63,7 +67,7 @@ def findbaseurl(url): #find the url to append if links arent absolute
 def pagegets(url): #download 
     global got_list
     if url in got_list:
-        return(return_blank_page())
+        return(return_blank_page(), 3)
     else:
         got_list = (got_list+[url])
         try:
@@ -156,6 +160,6 @@ def nlistclean(flist):
         if findbaseurl(url) not in nflist:
             elist.append(url)
         else:
-            print("filtered", url)
+            pass
     neo_list=elist
     return(neo_list)
