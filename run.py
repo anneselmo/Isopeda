@@ -24,7 +24,7 @@ def str2dict(string):
 def parse():
     parser = argparse.ArgumentParser(description="news scanner gizmo")
     parser.add_argument("-k", dest = "keywords", default=0, help="keywords", type=str, nargs='+')
-    parser.add_argument("-q", dest = "cats", default=0, help="categories", type=str)
+    parser.add_argument("-q", dest = "cats", default=0, help="categories in the format: category:value,category:value[...]", type=str)
     parser.add_argument("-c", dest = "crawl", const=1, default=0, help="signals to do a crawl", action='store_const')
     parser.add_argument("-f", dest = "full", const=1, default=0, help="signals to do a full run (crawl + scan)", action='store_const')
     parser.add_argument("-s", dest = "seeds", default=[], help="list of seed urls", type=str, nargs='+')
