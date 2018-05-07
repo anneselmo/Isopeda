@@ -47,13 +47,13 @@ def check_categories(cl, cats, descr):
         return(cats[str(cat, 'utf-8')])
     return(0)
 
-def isopeda(directory):
+def isopeda(directory, confdir):
     score={}
     best=[]
     global allwords
-    cats=load_json("cats.dict")
-    allwords=utils.cdb2dict("allwords.dict.cdb")
-    keywords=load_json("keywords.list")
+    cats=load_json(confdir+"/"+"cats.dict")
+    allwords=utils.cdb2dict(confdir+"/"+"allwords.dict.cdb")
+    keywords=load_json(confdir+"/"+"keywords.list")
     cl=load_cl("classi.class") 
     ready_directory(directory)
     places=utils.recursive_scan("desc.cdb", directory)

@@ -31,6 +31,7 @@ def parse():
     parser.add_argument("-l", dest = "limit", default=1296, help="vaugely followed limit for total list of urls during crawl, default 1296", type=int) 
     parser.add_argument("-t", dest = "threads", default=2, help="number of threads to run crawler with, default 2", type=int) 
     parser.add_argument("-d", dest = "dir", default=0, help="where to run a crawl, default date+time", type=int) 
+    parser.add_argument("-x", dest = "confdir", default=".", help="directory where config files are (allwords.dict.cdb etc)", type=int) 
     parser.add_argument("-r", dest = "rounds", default=2, help="number of rounds to run crawler with, default 2", type=int) 
     parser.add_argument("-C", dest = "classify", default=0, help="generate the classifier (argument should be ", type=str) 
     args = parser.parse_args()
@@ -50,7 +51,7 @@ def parse():
         corpse.neoprocess_dir(args.classify)
         classi.classi(args.classify)
     if args.full is 1:
-        isopeda.isopeda(args.dir)
+        isopeda.isopeda(args.dir, os.path.abspath(args.confidr))
     else:
         print("you can use -h to get help")
 
