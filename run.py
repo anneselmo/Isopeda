@@ -51,7 +51,7 @@ def parse():
         corpse.neoprocess_dir(args.classify)
         classi.classi(args.classify)
     if args.full is 1:
-        isopeda.isopeda(args.dir, os.path.abspath(args.confidr))
+        isopeda.isopeda(args.dir, os.path.abspath(args.confdir))
     else:
         print("you can use -h to get help")
 
