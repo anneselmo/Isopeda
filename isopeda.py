@@ -17,11 +17,12 @@ def score_cdb(tfile, cats, keywords, cl):
     score, uscore={}, {}
     for key in utils.get_all_keys(cdb):
         if key.endswith("desc"):
-                cati=check_categories(cl, cats, json.loads(str(cdb[bytes(key, 'utf-8')], 'utf-8')))
-                keywi=check_keywords(keywords, str(cdb[bytes(key, 'utf-8')], 'utf-8'))
-                value=int(cati)+keywi
-                score[cdb[bytes(key[:-4]+"url", 'utf-8')]]=value
-                print("VAL:", cati, keywi)
+            date=corpse.guess_date(cdb[bytes(key[:-4], 'utf-8')])
+            cati=check_categories(cl, cats, json.loads(str(cdb[bytes(key, 'utf-8')], 'utf-8')))
+            keywi=check_keywords(keywords, str(cdb[bytes(key, 'utf-8')], 'utf-8'))
+            value=int(cati)+keywi
+            score[cdb[bytes(key[:-4]+"url", 'utf-8')]]=value
+            print("VAL:", cati, keywi)
     return(score)
 
 def ready_directory(directory):
