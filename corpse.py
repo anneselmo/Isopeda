@@ -92,12 +92,12 @@ def preprocess_dir(directory): #generate list of significant words
     print("ALLWORDS", len(allwords)) 
     utils.dict2cdb(allwords, "allwords.dict.cdb")
 
-def neo_process_dir(directory):
+def neo_process_dir(directory, confdir):
     global allwords
     try: #open allwords if its not already here
         type(allwords) 
     except:
-        allwords=utils.cdb2dict("allwords.dict.cdb")
+        allwords=utils.cdb2dict(confdir+"/allwords.dict.cdb")
     for path in utils.find_directories(directory):
         cdb=utils.neo_cdb(path+".desc.cdb")
         desc=os.path.basename(path)

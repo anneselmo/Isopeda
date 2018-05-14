@@ -29,7 +29,7 @@ def ready_directory(directory):
     for place in utils.recursive_scan("dict.cdb", directory):
         if place.startswith("allwords"):
             allwords=utils.cdb2dict(place)
-    corpse.neo_process_dir(directory)
+    corpse.neo_process_dir(directory, confdir)
 
 def check_keywords(keywords, descr):
     score=0
@@ -48,14 +48,16 @@ def check_categories(cl, cats, descr):
         return(cats[str(cat, 'utf-8')])
     return(0)
 
-def isopeda(directory, confdir):
+def isopeda(directory, condir):
     score={}
     best=[]
     global allwords
+    global confdir
+    confdir=condir
     cats=load_json(confdir+"/"+"cats.dict")
     allwords=utils.cdb2dict(confdir+"/"+"allwords.dict.cdb")
     keywords=load_json(confdir+"/"+"keywords.list")
-    cl=load_cl("classi.class") 
+    cl=load_cl(confdir+"/"+"classi.class") 
     ready_directory(directory)
     places=utils.recursive_scan("desc.cdb", directory)
     for place in places:
