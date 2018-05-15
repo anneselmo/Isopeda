@@ -10,9 +10,6 @@ import os
 import magic
 import random
 
-class faux_page: #fake pages when errors occur
-    content = None
-
 def trueget(llist):
     database=cdbx.CDB.make(datetime.datetime.now().strftime("%s")+".html.cdb")
     global neo_list 
@@ -34,14 +31,11 @@ def trueget(llist):
 def data_enter(url, database):
     data=pagegets(url)
     if data[1] is 3:
-        return(1) #dont keep blanks
+        return(1) #code 3 is for blank pages
     page=data[0]
     scan=magic.Magic(mime=True)
     url.replace("\n", "")
     if url.split(".")[-1:][0] in ["zip", "gzip", "tgz", "iso", "xz", "bz2", "img", "qcow2", "mp3", "aac", "flac", "opus", "mp4", "ogg"]:
-        del(page)
-        return(1)
-    if scan.from_buffer(page.content) is "<html></html>": #dont save blank pages
         del(page)
         return(1)
     database.add(bytes("ut-"+url, 'utf-8'), datetime.datetime.now().strftime("%s")) #timestamping
@@ -67,7 +61,7 @@ def findbaseurl(url): #find the url to append if links arent absolute
 def pagegets(url): #download 
     global got_list
     if url in got_list:
-        return(return_blank_page(), 3)
+        return("", 3)
     else:
         got_list = (got_list+[url])
         try:
@@ -83,14 +77,9 @@ def pagegets(url): #download
                     page = requests.get(url, verify=False, headers={"User-Agent": "Salticus scenicus"}) #ignore https errors
                     https=0
         except requests.exceptions.RequestException:
-            page=return_blank_page()
+            page=""
             https=3
         return(page, https)
-
-def return_blank_page():
-    page=faux_page
-    page.content="<html></html>"
-    return(page)
 
 def linksget2(page, rooturl): #derives a list of links from an html page
     llist = []
