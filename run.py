@@ -53,8 +53,4 @@ def parse():
     if args.full is 1:
         print(args.dir, os.path.abspath(args.confdir))
         isopeda.isopeda(args.dir, os.path.abspath(args.confdir))
-    else:
-        print("specifying the confdir is a good policy, you can use -h to get help")
-
-
 parse()
