@@ -26,7 +26,7 @@ def score_cdb(tfile, cats, keywords, cl):
     return(score)
 
 def ready_directory(directory):
-    for place in utils.recursive_scan("dict.cdb", directory):
+    for place in utils.recursive_scan("dict.cdb", [directory]):
         if place.startswith("allwords"):
             allwords=utils.cdb2dict(place)
     corpse.neo_process_dir(directory, confdir)
@@ -54,12 +54,14 @@ def isopeda(directory, condir):
     global allwords
     global confdir
     confdir=condir
+    if os.path.isdir(directory) is False:
+        os.makedirs(directory)
     cats=load_json(confdir+"/"+"cats.dict")
     allwords=utils.cdb2dict(confdir+"/"+"allwords.dict.cdb")
     keywords=load_json(confdir+"/"+"keywords.list")
     cl=load_cl(confdir+"/"+"classi.class") 
     ready_directory(directory)
-    places=utils.recursive_scan("desc.cdb", directory)
+    places=utils.recursive_scan("desc.cdb", [directory])
     for place in places:
         score.update(score_cdb(place, cats, keywords, cl))
     print(score)
