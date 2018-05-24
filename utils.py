@@ -46,9 +46,9 @@ def cdb_add(cdb, key, content):
 
 def find_directories(path):
     dlist=[]
-    for path in os.listdir(path):
-        if os.path.isdir(path) is True:
-            dlist.append(path)
+    for item in os.listdir(path):
+        if os.path.isdir(path+"/"+item) is True:
+            dlist.append(path+"/"+item)
     return(dlist)
 
 def dict2cdb(content, name):
