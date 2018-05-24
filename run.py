@@ -50,5 +50,6 @@ def parse():
     if args.full is 1:
         if args.dir is 0:
             args.dir=os.path.abspath(".")+"/"+datetime.datetime.now().strftime("%F.%T")
+        salt.countloop(args.seeds, args.rounds, args.limit, args.threads, args.dir)
         isopeda.isopeda(args.dir, os.path.abspath(args.confdir))
 parse()
