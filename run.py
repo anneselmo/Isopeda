@@ -48,8 +48,9 @@ def parse():
         corpse.neoprocess_dir(args.classify)
         classi.classi(args.classify)
     if args.full is 1:
+        cond=os.path.abspath(args.confdir)
         if args.dir is 0:
             args.dir=os.path.abspath(".")+"/"+datetime.datetime.now().strftime("%F.%T")
         salt.countloop(args.seeds, args.rounds, args.limit, args.threads, args.dir)
-        isopeda.isopeda(args.dir, os.path.abspath(args.confdir))
+        isopeda.isopeda(args.dir, cond)
 parse()
