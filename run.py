@@ -36,9 +36,6 @@ def parse():
     parser.add_argument("-C", dest = "classify", default=0, help="generate the classifier (argument should be ", type=str) 
     args = parser.parse_args()
     
-    if args.full is 1:
-        args.crawl=1
-        args.dir=os.path.abspath(".")+"/"+datetime.datetime.now().strftime("%F.%T")
     if args.keywords is not 0:
         save_json(args.keywords, "keywords.list")
     if args.cats is not 0:
@@ -51,6 +48,7 @@ def parse():
         corpse.neoprocess_dir(args.classify)
         classi.classi(args.classify)
     if args.full is 1:
-        print(args.dir, os.path.abspath(args.confdir))
+        if args.dir is 0:
+            args.dir=os.path.abspath(".")+"/"+datetime.datetime.now().strftime("%F.%T")
         isopeda.isopeda(args.dir, os.path.abspath(args.confdir))
 parse()
