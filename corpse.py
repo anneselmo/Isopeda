@@ -98,19 +98,18 @@ def neo_process_dir(directory, confdir):
         type(allwords) 
     except:
         allwords=utils.cdb2dict(confdir+"/allwords.dict.cdb")
-    for path in utils.find_directories(directory):
-        cdb=utils.neo_cdb(path+".desc.cdb")
-        desc=os.path.basename(path)
-        book=aggtext.agg_text(utils.recursive_scan(".html.cdb", [path]))
-        for word in allwords:
-            allwords[word]=0
-        for page in book:
-            if page.startswith("url") is False:
-                utils.cdb_add(cdb, page, book[page])
-                utils.cdb_add(cdb, page+"desc", json.dumps(neo_describe(book[page], page)))
-                utils.cdb_add(cdb, page+"url", book["url-"+page])
-        utils.cdb_add(cdb, "description", desc)
-        utils.ccommit_cdb(cdb)
+    cdb=utils.neo_cdb(directory+".desc.cdb")
+    desc=os.path.basename(directory)
+    book=aggtext.agg_text(utils.recursive_scan(".html.cdb", [directory]))
+    for word in allwords:
+        allwords[word]=0
+    for page in book:
+        if page.startswith("url") is False:
+            utils.cdb_add(cdb, page, book[page])
+            utils.cdb_add(cdb, page+"desc", json.dumps(neo_describe(book[page], page)))
+            utils.cdb_add(cdb, page+"url", book["url-"+page])
+    utils.cdb_add(cdb, "description", desc)
+    utils.ccommit_cdb(cdb)
     return("fin")
 
 def startup():
