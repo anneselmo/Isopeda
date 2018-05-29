@@ -69,6 +69,7 @@ def pagegets(url): #download
                 tor=requests.session()
                 tor.proxies= { 'http': 'socks5h://localhost:9050', 'https': 'socks5h://localhost:9050' }
                 page=tor.get(url, verify=False, headers={"User-Agent": "Salticus scenicus"})
+                https=4
             else:
                 try:
                     page = requests.get(url, headers={"User-Agent": "Salticus scenicus"}) 
